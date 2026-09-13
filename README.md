@@ -35,9 +35,8 @@ Example folders currently in this repo:
 | etc | etc |
 
 
-
-Which problems I have done will come up here by an auto sync btw my leetcode and github !
-If you want to know the steps dm me ,
+problems which I have solved will come up here by an auto sync btw my leetcode and github !
+If you want to know the steps dm me .
 
 *(list updated as new problems are added)*
 
