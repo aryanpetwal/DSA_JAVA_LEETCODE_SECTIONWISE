@@ -32,7 +32,7 @@ Example folders currently in this repo:
 | 1580 | Shuffle the Array |
 | 1603 | Running Sum of 1d Array |
 | 4245 | Count Commas in Range |
-etc etc
+| etc | etc |
 Which problems I have done will come up here by an auto sync btw my leetcode and github !
 If you want to know the steps dm me ,
 
