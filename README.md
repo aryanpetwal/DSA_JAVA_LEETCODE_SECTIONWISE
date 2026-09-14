@@ -1,4 +1,4 @@
-# 🚀 DSA & LeetCode — Java
+#  DSA & LeetCode — Java
 
 A structured collection of my **Data Structures & Algorithms** practice in Java, organized topic-wise and difficulty-wise.
 
@@ -6,7 +6,7 @@ I am solving problems on **LeetCode** to improve my problem-solving skills and p
 
 ---
 
-## 📊 LeetCode Progress
+## LeetCode Progress
 
 <!-- LEETCODE-STATS:START -->
 
@@ -24,7 +24,7 @@ I am solving problems on **LeetCode** to improve my problem-solving skills and p
 
 ---
 
-## 📚 DSA Roadmap
+##  DSA Roadmap
 
 ### 01. Arrays
 - Easy
@@ -118,7 +118,7 @@ I am solving problems on **LeetCode** to improve my problem-solving skills and p
 
 ---
 
-## 💻 Language
+##  Language
 
 **Java**
 
@@ -145,24 +145,24 @@ Topics covered include:
 
 ---
 
-## 🎯 Current Goal
+##  Current Goal
 
-- 🧠 Strengthen DSA fundamentals
-- ☕ Improve Java problem solving
-- 📈 Consistently solve LeetCode problems
-- 💼 Prepare for SDE-1 interviews
-- 🚀 Gradually progress from Easy → Medium → Hard
-
----
-
-## 🔗 Profiles
-
-- 💻 **GitHub:** [aryanpetwal](https://github.com/aryanpetwal)
-- 🧩 **LeetCode:** [ryn1n__](https://leetcode.com/u/ryn1n__)
+- Strengthen DSA fundamentals
+- Improve Java problem solving
+-  Consistently solve LeetCode problems
+- Prepare for SDE-1 interviews
+- Gradually progress from Easy → Medium → Hard
 
 ---
 
-## 📈 Progress Philosophy
+##  Profiles
+
+-  **GitHub:** [aryanpetwal](https://github.com/aryanpetwal)
+-  **LeetCode:** [ryn1n__](https://leetcode.com/u/ryn1n__)
+
+---
+
+##  Progress Philosophy
 
 > **Consistency over perfection.**
 
