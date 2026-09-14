@@ -1,65 +1,173 @@
+# 🚀 DSA & LeetCode — Java
 
-# Leetcodeprogress 🚀
+A structured collection of my **Data Structures & Algorithms** practice in Java, organized topic-wise and difficulty-wise.
 
-A personal log of my LeetCode journey — solutions, notes, and progress tracked one problem at a time.
-
-## 📌 About
-
-This repository contains my solutions to LeetCode problems as I work through data structures and algorithms. Each problem lives in its own folder, named after the problem number and title, containing my solution code and (where useful) notes on approach and complexity.
-
-## 📂 Structure
-
-Each folder follows the pattern:
-
-```
-<problem-number>-<problem-name>/
-  └── solution.<ext>
-```
-
-Example folders currently in this repo:
-
-| # | Problem |
-|---|---------|
-| 1 | Two Sum |
-| 11 | Container With Most Water |
-| 26 | Remove Duplicates from Sorted Array |
-| 27 | Remove Element |
-| 35 | Search Insert Position |
-| 169 | Majority Element |
-| 344 | Reverse String |
-| 349 | Intersection of Two Arrays |
-| 1570 | Final Prices With a Special Discount |
-| 1580 | Shuffle the Array |
-| 1603 | Running Sum of 1d Array |
-| 4245 | Count Commas in Range |
-| etc | etc |
-
-
-problems which I have solved will come up here by an auto sync btw my leetcode and github !
-If you want to know the steps dm me .
-
-*(list updated as new problems are added)*
-
- 🎯 Goals
-
-- Build consistency by solving problems regularly
-- Strengthen understanding of core data structures & algorithms
-- Track patterns across problem types (arrays, strings, two pointers, etc.)
-- Keep clean, readable, well-commented solutions
-
- 🛠️ Tech
-
-Solutions are written primarily in **Python / JavaScript** *(update this line to match your actual language(s))*.
-
- 📈 Progress
-
-Problems solved so far: **12+**
-Updated regularly as I keep grinding !
-
-🤝 Contributing
-
-This is a personal learning repo, but feel free to open an issue if you spot a bug or a more efficient approach!
+I am solving problems on **LeetCode** to improve my problem-solving skills and prepare for **SDE-1 / Software Developer** interviews.
 
 ---
 
-⭐ If you find this useful for your own LeetCode prep, feel free to star the repo.
+## 📊 LeetCode Progress
+
+<!-- LEETCODE-STATS:START -->
+
+**Total Problems Solved: 31**
+
+| Difficulty | Solved |
+|------------|--------|
+| 🟢 Easy | 27 |
+| 🟡 Medium | 4 |
+| 🔴 Hard | 0 |
+
+<!-- LEETCODE-STATS:END -->
+
+> This section is automatically updated as I add new solved problems to this repository.
+
+---
+
+## 📚 DSA Roadmap
+
+### 01. Arrays
+- Easy
+- Medium
+- Hard
+
+### 02. Strings
+- Easy
+- Medium
+- Hard
+
+### 03. Math
+- Easy
+- Medium
+- Hard
+
+### 04. Hashing
+- Easy
+- Medium
+- Hard
+
+### 05. Two Pointers
+- Easy
+- Medium
+- Hard
+
+### 06. Sliding Window
+- Easy
+- Medium
+- Hard
+
+### 07. Searching
+- Easy
+- Medium
+- Hard
+
+### 08. Sorting
+- Easy
+- Medium
+- Hard
+
+### 09. Linked List
+- Easy
+- Medium
+- Hard
+
+### 10. Stack
+- Easy
+- Medium
+- Hard
+
+### 11. Queue
+- Easy
+- Medium
+- Hard
+
+### 12. Recursion
+- Easy
+- Medium
+- Hard
+
+### 13. Backtracking
+- Easy
+- Medium
+- Hard
+
+### 14. Trees
+- Easy
+- Medium
+- Hard
+
+### 15. Heap
+- Easy
+- Medium
+- Hard
+
+### 16. Greedy
+- Easy
+- Medium
+- Hard
+
+### 17. Graphs
+- Easy
+- Medium
+- Hard
+
+### 18. Dynamic Programming
+- Easy
+- Medium
+- Hard
+
+---
+
+## 💻 Language
+
+**Java**
+
+Topics covered include:
+
+- Arrays
+- Strings
+- Mathematics
+- Hashing
+- Two Pointers
+- Sliding Window
+- Searching
+- Sorting
+- Linked Lists
+- Stack
+- Queue
+- Recursion
+- Backtracking
+- Trees
+- Heap
+- Greedy
+- Graphs
+- Dynamic Programming
+
+---
+
+## 🎯 Current Goal
+
+- 🧠 Strengthen DSA fundamentals
+- ☕ Improve Java problem solving
+- 📈 Consistently solve LeetCode problems
+- 💼 Prepare for SDE-1 interviews
+- 🚀 Gradually progress from Easy → Medium → Hard
+
+---
+
+## 🔗 Profiles
+
+- 💻 **GitHub:** [aryanpetwal](https://github.com/aryanpetwal)
+- 🧩 **LeetCode:** [ryn1n__](https://leetcode.com/u/ryn1n__)
+
+---
+
+## 📈 Progress Philosophy
+
+> **Consistency over perfection.**
+
+Every problem I solve is a step toward becoming a better problem solver and software engineer.
+
+---
+
+⭐ This repository is continuously updated as I solve more DSA problems.
