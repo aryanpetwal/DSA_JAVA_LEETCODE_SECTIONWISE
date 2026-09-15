@@ -10,12 +10,12 @@ I am solving problems on **LeetCode** to improve my problem-solving skills and p
 
 <!-- LEETCODE-STATS:START -->
 
-**Total Problems Solved: 31**
+**Total Problems Solved: 20**
 
 | Difficulty | Solved |
 |------------|--------|
-| 🟢 Easy | 27 |
-| 🟡 Medium | 4 |
+| 🟢 Easy | 17 |
+| 🟡 Medium | 3 |
 | 🔴 Hard | 0 |
 
 <!-- LEETCODE-STATS:END -->
