@@ -14,8 +14,8 @@ I am solving problems on **LeetCode** to improve my problem-solving skills and p
 
 | Difficulty | Solved |
 |------------|--------|
-| 🟢 Easy | 28 |
-| 🟡 Medium | 3 |
+| 🟢 Easy | 27 |
+| 🟡 Medium | 4 |
 | 🔴 Hard | 0 |
 
 <!-- LEETCODE-STATS:END -->
