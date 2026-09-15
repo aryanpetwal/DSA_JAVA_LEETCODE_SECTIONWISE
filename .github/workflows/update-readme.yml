@@ -19,16 +19,36 @@ jobs:
       - name: Calculate LeetCode statistics
         shell: bash
         run: |
-          EASY=$(find . -type d -path "*/Easy/*" | grep -v ".git" | wc -l)
-          MEDIUM=$(find . -type d -path "*/Medium/*" | grep -v ".git" | wc -l)
-          HARD=$(find . -type d -path "*/Hard/*" | grep -v ".git" | wc -l)
+          python - <<'PY'
+          import os
 
-          TOTAL=$((EASY + MEDIUM + HARD))
+          counts = {
+              "EASY": 0,
+              "MEDIUM": 0,
+              "HARD": 0
+          }
 
-          echo "EASY=$EASY" >> $GITHUB_ENV
-          echo "MEDIUM=$MEDIUM" >> $GITHUB_ENV
-          echo "HARD=$HARD" >> $GITHUB_ENV
-          echo "TOTAL=$TOTAL" >> $GITHUB_ENV
+          for root, dirs, files in os.walk("."):
+              if ".git" in root.split(os.sep):
+                  continue
+
+              for difficulty in counts:
+                  if os.sep + difficulty.title() + os.sep in root:
+                      counts[difficulty] += 1
+
+          total = counts["EASY"] + counts["MEDIUM"] + counts["HARD"]
+
+          print(f"Easy: {counts['EASY']}")
+          print(f"Medium: {counts['MEDIUM']}")
+          print(f"Hard: {counts['HARD']}")
+          print(f"Total: {total}")
+
+          with open(os.environ["GITHUB_ENV"], "a") as f:
+              f.write(f"EASY={counts['EASY']}\n")
+              f.write(f"MEDIUM={counts['MEDIUM']}\n")
+              f.write(f"HARD={counts['HARD']}\n")
+              f.write(f"TOTAL={total}\n")
+          PY
 
       - name: Update README
         shell: bash
