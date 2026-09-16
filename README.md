@@ -1,8 +1,8 @@
-#  DSA & LeetCode — Java
+# DSA & LeetCode — Java
 
-A structured collection of my **Data Structures & Algorithms** practice in Java, organized topic-wise and difficulty-wise.
+A structured collection of my **Data Structures & Algorithms** practice in Java, organized by topic and difficulty.
 
-I am solving problems on **LeetCode** to improve my problem-solving skills and prepare for **SDE-1 / Software Developer** interviews.
+I am solving problems on **LeetCode** to strengthen my problem-solving skills, improve my Java fundamentals, and prepare for **SDE-1 / Software Developer** interviews.
 
 ---
 
@@ -14,9 +14,9 @@ I am solving problems on **LeetCode** to improve my problem-solving skills and p
 
 | Difficulty | Solved |
 |------------|--------|
-| 🟢 Easy | 29 |
-| 🟡 Medium | 4 |
-| 🔴 Hard | 0 |
+| Easy | 29 |
+| Medium | 4 |
+| Hard | 0 |
 
 <!-- LEETCODE-STATS:END -->
 
@@ -24,7 +24,7 @@ I am solving problems on **LeetCode** to improve my problem-solving skills and p
 
 ---
 
-##  DSA Roadmap
+## DSA Roadmap
 
 ### 01. Arrays
 - Easy
@@ -118,11 +118,11 @@ I am solving problems on **LeetCode** to improve my problem-solving skills and p
 
 ---
 
-##  Language
+## Language
 
 **Java**
 
-Topics covered include:
+The repository focuses on practicing:
 
 - Arrays
 - Strings
@@ -145,24 +145,47 @@ Topics covered include:
 
 ---
 
-##  Current Goal
+## GitHub Actions Automation
+
+This repository uses **GitHub Actions** to automate the organization and maintenance of LeetCode solutions.
+
+The workflow automatically:
+
+- Detects newly added LeetCode problems
+- Retrieves problem metadata
+- Identifies the problem number
+- Identifies the difficulty
+- Determines the primary DSA topic
+- Places each problem into one DSA section
+- Organizes problems into Easy, Medium, or Hard
+- Corrects problem numbering when required
+- Updates the LeetCode statistics
+- Commits and pushes the changes automatically
+
+This allows the repository to stay organized while reducing repetitive manual work.
+
+---
+
+## Current Goal
 
 - Strengthen DSA fundamentals
-- Improve Java problem solving
--  Consistently solve LeetCode problems
+- Improve Java problem-solving skills
+- Solve LeetCode problems consistently
+- Learn and apply efficient algorithms
 - Prepare for SDE-1 interviews
-- Gradually progress from Easy → Medium → Hard
+- Gradually progress from Easy to Medium to Hard
+- Build a strong foundation for software development
 
 ---
 
-##  Profiles
+## Profiles
 
--  **GitHub:** [aryanpetwal](https://github.com/aryanpetwal)
--  **LeetCode:** [ryn1n__](https://leetcode.com/u/ryn1n__)
+- **GitHub:** [aryanpetwal](https://github.com/aryanpetwal)
+- **LeetCode:** [ryn1n__](https://leetcode.com/u/ryn1n__)
 
 ---
 
-##  Progress Philosophy
+## Progress Philosophy
 
 > **Consistency over perfection.**
 
@@ -170,4 +193,8 @@ Every problem I solve is a step toward becoming a better problem solver and soft
 
 ---
 
-⭐ This repository is continuously updated as I solve more DSA problems.
+## Repository Status
+
+This repository is actively maintained and continuously updated as I solve new DSA problems.
+
+More problems, topics, and automation improvements will be added over time.
