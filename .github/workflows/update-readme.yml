@@ -1,4 +1,4 @@
-name: Update LeetCode Stats
+name: Organize LeetCode and Update Stats
 
 on:
   push:
@@ -9,102 +9,234 @@ permissions:
   contents: write
 
 jobs:
-  update-readme:
+  organize-and-update:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Calculate LeetCode statistics
+      - name: Organize LeetCode problems and update README
         shell: bash
         run: |
           python - <<'PY'
-          import os
+          import json
+          import re
+          import shutil
+          import subprocess
+          import urllib.request
+          from pathlib import Path
 
-          counts = {
-              "EASY": 0,
-              "MEDIUM": 0,
-              "HARD": 0
+          SECTIONS = {
+              "01-Arrays": "array",
+              "02-Strings": "string",
+              "03-Math": "math",
+              "04-Hashing": "hash-table",
+              "05-Two-Pointers": "two-pointers",
+              "06-Sliding-Window": "sliding-window",
+              "07-Searching": "binary-search",
+              "08-Sorting": "sorting",
+              "09-LinkedList": "linked-list",
+              "10-Stack": "stack",
+              "11-Queue": "queue",
+              "12-Recursion": "recursion",
+              "13-Backtracking": "backtracking",
+              "14-Trees": "tree",
+              "15-Heap": "heap",
+              "16-Greedy": "greedy",
+              "17-Graphs": "graph",
+              "18-Dynamic-Programming": "dynamic-programming",
           }
 
-          for root, dirs, files in os.walk("."):
-              if ".git" in root.split(os.sep):
+          DIFFICULTIES = {"EASY": "Easy", "MEDIUM": "Medium", "HARD": "Hard"}
+
+          # Explicit choices for problems where LeetCode has several useful tags.
+          # New problems fall back to their most specific matching tag.
+          OVERRIDES = {
+              "1": "01-Arrays",
+              "9": "03-Math",
+              "11": "01-Arrays",
+              "26": "01-Arrays",
+              "27": "01-Arrays",
+              "35": "07-Searching",
+              "53": "01-Arrays",
+              "66": "01-Arrays",
+              "88": "01-Arrays",
+              "121": "01-Arrays",
+              "125": "02-Strings",
+              "1365": "01-Arrays",
+              "1431": "01-Arrays",
+              "1470": "01-Arrays",
+              "1475": "01-Arrays",
+              "1480": "01-Arrays",
+              "1672": "01-Arrays",
+              "1920": "01-Arrays",
+              "1929": "01-Arrays",
+              "2011": "01-Arrays",
+              "217": "01-Arrays",
+              "268": "01-Arrays",
+              "283": "01-Arrays",
+              "344": "02-Strings",
+              "349": "01-Arrays",
+              "560": "01-Arrays",
+              "704": "07-Searching",
+              "724": "01-Arrays",
+              "1221": "02-Strings",
+              "3870": "03-Math",
+              "3871": "03-Math",
+          }
+
+          # More specific/specialized topics are preferred for future problems.
+          TAG_PRIORITY = [
+              "dynamic-programming", "graph", "tree", "backtracking", "linked-list",
+              "stack", "queue", "heap", "greedy", "sliding-window", "two-pointers",
+              "binary-search", "sorting", "hash-table", "math", "string", "array"
+          ]
+
+          def leetcode_data(slug):
+              query = """
+              query questionData($titleSlug: String!) {
+                question(titleSlug: $titleSlug) {
+                  questionFrontendId
+                  title
+                  difficulty
+                  topicTags { slug name }
+                }
+              }
+              """
+              payload = json.dumps({
+                  "query": query,
+                  "variables": {"titleSlug": slug}
+              }).encode("utf-8")
+              request = urllib.request.Request(
+                  "https://leetcode.com/graphql",
+                  data=payload,
+                  headers={
+                      "Content-Type": "application/json",
+                      "User-Agent": "Mozilla/5.0 GitHubActions"
+                  },
+                  method="POST"
+              )
+              with urllib.request.urlopen(request, timeout=20) as response:
+                  data = json.loads(response.read().decode("utf-8"))
+              question = data.get("data", {}).get("question")
+              if not question:
+                  raise RuntimeError(f"LeetCode problem not found for slug: {slug}")
+              return question
+
+          def choose_section(frontend_id, tags):
+              if frontend_id in OVERRIDES:
+                  return OVERRIDES[frontend_id]
+              tag_slugs = {t.get("slug") for t in tags}
+              for tag in TAG_PRIORITY:
+                  if tag in tag_slugs:
+                      for section, section_tag in SECTIONS.items():
+                          if section_tag == tag:
+                              return section
+              return None
+
+          def problem_dirs():
+              found = []
+              pattern = re.compile(r"^\d+-[a-z0-9][a-z0-9-]*$")
+
+              # LeetSync may initially place a new problem at repository root.
+              for p in Path(".").iterdir():
+                  if p.is_dir() and pattern.match(p.name) and p.name not in SECTIONS:
+                      found.append(p)
+
+              # Also validate/reorganize problems already inside the roadmap.
+              for section in SECTIONS:
+                  for difficulty in DIFFICULTIES.values():
+                      base = Path(section) / difficulty
+                      if not base.exists():
+                          continue
+                      for p in base.iterdir():
+                          if p.is_dir() and pattern.match(p.name):
+                              found.append(p)
+              return found
+
+          changed = False
+          for old_path in problem_dirs():
+              match = re.match(r"^\d+-(.+)$", old_path.name)
+              if not match:
+                  continue
+              slug = match.group(1)
+
+              try:
+                  question = leetcode_data(slug)
+              except Exception as exc:
+                  print(f"WARNING: Could not read LeetCode metadata for {old_path}: {exc}")
                   continue
 
+              frontend_id = str(question["questionFrontendId"])
+              canonical_slug = re.sub(r"[^a-z0-9-]+", "-", slug.lower()).strip("-")
+              canonical_name = f"{frontend_id}-{canonical_slug}"
+              difficulty = DIFFICULTIES.get(question["difficulty"].upper())
+              section = choose_section(frontend_id, question.get("topicTags", []))
+
+              if not difficulty or not section:
+                  print(f"WARNING: No section mapping for {old_path}")
+                  continue
+
+              target = Path(section) / difficulty / canonical_name
+              target.parent.mkdir(parents=True, exist_ok=True)
+
+              if old_path.resolve() == target.resolve():
+                  continue
+
+              if target.exists():
+                  print(f"WARNING: Target already exists, leaving {old_path} unchanged: {target}")
+                  continue
+
+              print(f"Moving {old_path} -> {target}")
+              shutil.move(str(old_path), str(target))
+              changed = True
+
+          # Count only direct problem directories under each difficulty folder.
+          counts = {"Easy": 0, "Medium": 0, "Hard": 0}
+          for section in SECTIONS:
               for difficulty in counts:
-                  if os.sep + difficulty.title() + os.sep in root:
-                      counts[difficulty] += 1
+                  base = Path(section) / difficulty
+                  if base.exists():
+                      counts[difficulty] += sum(1 for p in base.iterdir() if p.is_dir())
 
-          total = counts["EASY"] + counts["MEDIUM"] + counts["HARD"]
-
-          print(f"Easy: {counts['EASY']}")
-          print(f"Medium: {counts['MEDIUM']}")
-          print(f"Hard: {counts['HARD']}")
+          total = sum(counts.values())
+          print(f"Easy: {counts['Easy']}")
+          print(f"Medium: {counts['Medium']}")
+          print(f"Hard: {counts['Hard']}")
           print(f"Total: {total}")
 
-          with open(os.environ["GITHUB_ENV"], "a") as f:
-              f.write(f"EASY={counts['EASY']}\n")
-              f.write(f"MEDIUM={counts['MEDIUM']}\n")
-              f.write(f"HARD={counts['HARD']}\n")
-              f.write(f"TOTAL={total}\n")
-          PY
-
-      - name: Update README
-        shell: bash
-        run: |
-          python - <<'PY'
-          import os
-          import re
-
-          path = "README.md"
-
-          with open(path, "r", encoding="utf-8") as f:
-              content = f.read()
-
-          easy = os.environ["EASY"]
-          medium = os.environ["MEDIUM"]
-          hard = os.environ["HARD"]
-          total = os.environ["TOTAL"]
-
-          new_stats = f"""**Total Problems Solved: {total}**
-
-          | Difficulty | Solved |
-          |------------|--------|
-          | 🟢 Easy | {easy} |
-          | 🟡 Medium | {medium} |
-          | 🔴 Hard | {hard} |"""
+          readme = Path("README.md")
+          content = readme.read_text(encoding="utf-8")
+          stats = (
+              "<!-- LEETCODE-STATS:START -->\n\n"
+              f"**Total Problems Solved: {total}**\n\n"
+              "| Difficulty | Solved |\n"
+              "|------------|--------|\n"
+              f"| 🟢 Easy | {counts['Easy']} |\n"
+              f"| 🟡 Medium | {counts['Medium']} |\n"
+              f"| 🔴 Hard | {counts['Hard']} |\n\n"
+              "<!-- LEETCODE-STATS:END -->"
+          )
 
           pattern = r"<!-- LEETCODE-STATS:START -->.*?<!-- LEETCODE-STATS:END -->"
-
-          replacement = (
-              "<!-- LEETCODE-STATS:START -->\n\n"
-              + new_stats
-              + "\n\n<!-- LEETCODE-STATS:END -->"
-          )
-
-          content = re.sub(
-              pattern,
-              replacement,
-              content,
-              flags=re.DOTALL
-          )
-
-          with open(path, "w", encoding="utf-8") as f:
-              f.write(content)
+          new_content, replacements = re.subn(pattern, stats, content, flags=re.DOTALL)
+          if replacements:
+              readme.write_text(new_content, encoding="utf-8")
+          else:
+              print("WARNING: README stats markers not found")
           PY
 
-      - name: Commit updated README
+      - name: Commit and push changes
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add README.md
+          git add -A
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Update LeetCode statistics"
+            git commit -m "Organize LeetCode problems and update stats"
             git push
           fi
