@@ -10,11 +10,11 @@ I am solving problems on **LeetCode** to strengthen my problem-solving skills, i
 
 <!-- LEETCODE-STATS:START -->
 
-**Total Problems Solved: 34**
+**Total Problems Solved: 35**
 
 | Difficulty | Solved |
 |------------|--------|
-| 🟢 Easy | 29 |
+| 🟢 Easy | 30 |
 | 🟡 Medium | 5 |
 | 🔴 Hard | 0 |
 
