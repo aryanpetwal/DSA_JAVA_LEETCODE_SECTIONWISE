@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+# Prevent multiple runs from pushing to main at the same time.
+concurrency:
+  group: organize-leetcode-${{ github.ref }}
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
